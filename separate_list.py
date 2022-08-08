@@ -16,9 +16,9 @@ from multiprocessing import Pool
 start = time.time()
 
 # Email sending the messages
-e_address = 'dex.davenport1@gmail.com'
+e_address = ''
 # Application password for email created for project
-e_password = 'gymhxarepozcwdvh'
+e_password = ''
 
 def main(list):
     for i in list:
