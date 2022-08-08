@@ -1,28 +1,34 @@
 '''
 The connection WILL crash, it can be started every 4-6 minutes
+
+With this version, there is less reliablity of keeping track
+of the sent emails. The emails are added the sent list before 
+they are sent. This may be fixable with a larger testing list. 
 '''
-cur_path = '/Users/dexterdavenport/Desktop/Random Projects/emailer/'
 
 import smtplib
-# import random
-from time import sleep
+import time
 from email.message import EmailMessage
 from multiprocessing import Pool
 
+with open("login.txt") as pf:
+    lines = pf.read() 
+    login = lines.split('\n')
+
+cur_path = login[2]
+
+# define start time to keep track of time elapsted
+start = time.time()
+
 # Email sending the messages
-e_address = ''
+e_address = login[0]
 # Application password for email created for project
-e_password = ''
+e_password = login[1]
 
-def main(x):
-    sleep(x)
-    for i in range(14):
-        # get the first item from the list
-        with open(cur_path + "email_list.txt") as email:
-            lines = email.read() 
-            line = lines.split('\n', 1)[0]
-
-        info = line.split(' ')
+def main(list):
+    for i in list:
+        # split up the item
+        info = i.split(' ')
         contact = info[0]
         f_name = info[1]
         l_name = info[2]
@@ -62,29 +68,50 @@ def main(x):
         with smtplib.SMTP_SSL('smtp.gmail.com', 465 ) as smtp:
             smtp.login(e_address, e_password)
             smtp.send_message(msg)
-            
-        # rewrite the email_list without the email that was sent
-        with open(cur_path + 'email_list.txt', 'r') as just_read:
-            data = just_read.read().splitlines(True)
-        with open(cur_path + 'email_list.txt', 'w') as rewrite:
-            rewrite.writelines(data[1:])
-
-        # create a new file with a list of all the sent_emails
-        with open(cur_path + 'sent_emails.txt', 'a') as add_sent:
-            add_sent.write(contact + ' ' + f_name + ' ' + l_name + '\n')
 
         count +=1
         print(f'Message sent to {f_name} {l_name} sucessfully!!\n')
 
-if __name__ == '__main__':
-    with Pool(6) as p:
-        p.map(main, [0,1,2,3,4,5])
-        print("\nComplete!!!\n")
+def make_list(list):
+    for i in range(20):
+        # get the first line
+        with open(cur_path + "email_list.txt") as email:
+            lines = email.read() 
+            line = lines.split('\n', 1)[0]
+        if line != '':
+            # split up the line into email first and last name
+            info = line.split(' ')
+            contact = info[0]
+            f_name = info[1]
+            l_name = info[2]
 
-'''
-5 = 107, 109 emails
-6 = 114, 114, 117 emails
-7 = 103, 122, 124 emails
-8 =  99, 116 emails
-'''
+            list.append(line)
+
+            # rewrite the file without that item in it
+            with open(cur_path + 'email_list.txt', 'r') as just_read:
+                data = just_read.read().splitlines(True)
+            with open(cur_path + 'email_list.txt', 'w') as rewrite:
+                rewrite.writelines(data[1:])
+
+            # place the sent email in the send_emails file
+            with open(cur_path + 'sent_emails.txt', 'a') as add_sent:
+                add_sent.write(contact + ' ' + f_name + ' ' + l_name + '\n')
+
+if __name__ == '__main__':
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465 ) as smtp:
+        smtp.login(e_address, e_password)
+    list1 = []
+    list2 = []
+    list3 = []
+    list4 = []
+    list5 = []
+    make_list(list1)
+    make_list(list2)
+    make_list(list3)
+    make_list(list4)
+    make_list(list5)
+    with Pool(5) as p:
+        p.map(main, [list1,list2,list3,list4,list5])
+        end = time.time()
+        print(f"\nCompleted in {round(end - start, 2)} seconds!!!\n")
 
