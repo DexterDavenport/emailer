@@ -54,7 +54,7 @@ The create_list.py file will generate a list of 200 unique names for testing the
 
 # Run the Program
 
-To run this program simply open the main.py file. 
+To run this program simply open the 'program1.py' file. 
 
 BEFORE you do so make sure the email_list.txt is set up properly. This will be done like so:
 
@@ -78,3 +78,21 @@ Make sure there are no extra spaces on each line, only one after email and one a
 <br>
 
 You can have any number of lines in this file but only 100 emails will be sent at a time. 
+
+
+# WARNING
+
+**Starting the file more than once in less than 4 minutes could result in emails being moved to the 'sent_emails.txt' that were NOT sent. To avoid this only run this program once every 4-6 minutes.**
+
+<br>
+
+NOTE: If program crashes WHILE emails are sending, not all emails in 'sent_emails.txt' were sent. If program crashes before any emails are sent, 'sent_emails.txt' and 'email_list.txt' should not be effected. 
+
+<details>
+<summary>NOTE Explained</summary>
+
+When the program is started the emails that are going to be sent are automatically added to the 'sent_emails.txt' list. This is done to prevent data loss to make sure that your list of contacts will be reuseable. 
+
+Work arounds will be added later but may be less secure.
+
+</details>
