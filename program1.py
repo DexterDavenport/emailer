@@ -42,7 +42,7 @@ def main(list):
         msg['To'] = contact
         msg.set_content('This email is sent through a python scripts. The script was created by following allong with this video: https://www.youtube.com/watch?v=JRCJ6RtE3xU')
 
-        # This is a way to send html emails (create html file and send it as is as an email)
+        # This is a way to send html emails
         msg.add_alternative(f"""
 
         <!DOCTYPE html>
