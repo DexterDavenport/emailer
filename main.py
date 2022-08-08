@@ -1,5 +1,5 @@
 '''
-The connection WILL crash, it can be started every 4-6 minutes
+The connection WILL crash, it can be started once every 4-6 minutes
 
 With this version, there is less reliablity of keeping track
 of the sent emails. The emails are added the sent list before 

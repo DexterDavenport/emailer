@@ -1,0 +1,7 @@
+sender@email.com
+password
+/Your/current/path/to/project/
+firstName
+lastName
+
+DELETE THIS LINE: fill in your information above then rename the file as 'login.txt'

@@ -1,3 +1,11 @@
+'''
+This file is for testing purposes. It will generate
+a list of two contacts. The contacts will all be 
+your email. All of the last names will be numbered.
+The numbers are to assure that the emails being sent 
+are unique
+'''
+
 with open("login.txt") as pf:
     lines = pf.read() 
     login = lines.split('\n')
